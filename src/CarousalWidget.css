@@ -1,0 +1,17 @@
+.arrowRight {
+    fill: 'white';
+}
+
+.widget {
+    display: grid;
+    width: max-content;
+    height: max-content;
+}
+
+.container {
+    width: 640px;
+}
+
+.image {
+    position: absolute;
+}
