@@ -3,15 +3,60 @@
 }
 
 .widget {
-    display: grid;
-    width: max-content;
-    height: max-content;
-}
-
-.container {
+    position: relative;
+    height: auto;
     width: 640px;
+    height: 426px;
+    overflow: hidden;
 }
 
 .image {
-    position: absolute;
+    width: 640px;
+    height: 426px;
 }
+
+.prevPic {
+    position: absolute;
+    display: inline-block;
+    transform: translateX(-100%);
+    z-index: 1;
+}
+
+.prevPic.move {
+    transform: translateX(0);
+    transition: all .5s ease;
+}
+
+.currentPic{
+    position: absolute;
+    display: inline-block;
+    transform: translateX(0);
+}
+
+.currentPic.moveRight {
+    transform: translateX(-100%);
+    transition: all .5s ease;
+}
+
+.currentPic.moveLeft {
+    transform: translateX(100%);
+    transition: all .5s ease;
+}
+
+.nextPic {
+    position: absolute;
+    display: inline-block;
+    transform: translateX(100%);
+    z-index: 1;
+}
+
+.nextPic.move { 
+    transform: translateX(0);
+    transition: all .5s ease;
+}
+
+.exampleText {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+}   
