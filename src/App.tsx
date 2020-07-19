@@ -13,7 +13,16 @@ function App() {
   ];
 
   return (
-    <CarouselWidget images={exampleData}/>
+    <CarouselWidget numOfImgs={exampleData.length}>
+      {exampleData.map((data) => {
+        return (
+          <div key={data.img.toString()}>
+            <img src={data.img} className="image" alt="#" />
+            <h1 className="exampleText">{data.text}</h1>
+          </div>
+        )
+      })}
+    </CarouselWidget>
   );
 }
 
