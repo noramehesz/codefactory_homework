@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, ReactNodeArray } from 'react';
 import './CarousalWidget.css';
 import { ArrowRight, ArrowLeft } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,7 +29,9 @@ const useStyles = makeStyles({
 });
 
 interface CarouselWidgetProps {
-    images: Array<{img: any, text: string}>;
+    // images: Array<{img: any, text: string}>;
+    numOfImgs: number;
+    children: ReactNodeArray;
 }
 
 function CarouselWidget(props: CarouselWidgetProps) {
@@ -41,7 +43,7 @@ function CarouselWidget(props: CarouselWidgetProps) {
 
     const handleNavigationRightOnClick = useCallback(() => {
         let newIdx: number;
-        if (activeImage === props.images.length - 1) {
+        if (activeImage === props.numOfImgs - 1) {
             newIdx = 0;;
         } else {
             newIdx = activeImage + 1;
@@ -51,7 +53,7 @@ function CarouselWidget(props: CarouselWidgetProps) {
             setMoveRight(false);
             setActiveImage(newIdx);
         }, 500);
-    }, [setActiveImage,activeImage, props.images.length])
+    }, [setActiveImage,activeImage, props.numOfImgs])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -62,14 +64,14 @@ function CarouselWidget(props: CarouselWidgetProps) {
 
     const getPrevPicIdx = (): number => {
         if (activeImage === 0) {
-            return props.images.length - 1;
+            return props.numOfImgs - 1;
         } else {
             return activeImage - 1;
         }
     }
 
     const getNextPicIdx = (): number => {
-        if (activeImage === props.images.length - 1) {
+        if (activeImage === props.numOfImgs - 1) {
             return 0;
         } else {
             return activeImage + 1;
@@ -79,7 +81,7 @@ function CarouselWidget(props: CarouselWidgetProps) {
     const handleNavigationLeftOnClick = () => {
         let newIdx: number;
          if (activeImage === 0) {
-            newIdx = props.images.length - 1;
+            newIdx = props.numOfImgs - 1;
         } else {
             newIdx = activeImage - 1;
         }
@@ -93,16 +95,13 @@ function CarouselWidget(props: CarouselWidgetProps) {
     return (
             <div className="widget">
                 <div className={`prevPic ${moveLeft ? 'move' : ''}`}>
-                    <img src={props.images[getPrevPicIdx()].img} className="image" alt="#" />
-                    <h1 className="exampleText">{props.images[getPrevPicIdx()].text}</h1>
+                    {props.children[getPrevPicIdx()]}
                 </div>
                 <div className={`currentPic ${moveRight ? 'moveRight' : moveLeft ? 'moveLeft' : ''}`}>
-                    <img src={props.images[activeImage].img} className="image" alt="#" />
-                    <h1 className="exampleText">{props.images[activeImage].text}</h1>
+                    {props.children[activeImage]}
                 </div>
                 <div className={`nextPic ${moveRight ? 'move' : ''}`}>
-                    <img src={props.images[getNextPicIdx()].img} className="image" alt="#"/>
-                    <h1 className="exampleText">{props.images[getNextPicIdx()].text}</h1>
+                    {props.children[getNextPicIdx()]}
                 </div>
 
                 <ArrowLeft className={classes.arrowLeft} onClick={handleNavigationLeftOnClick} />
