@@ -29,7 +29,6 @@ const useStyles = makeStyles({
 });
 
 interface CarouselWidgetProps {
-    // images: Array<{img: any, text: string}>;
     numOfImgs: number;
     children: ReactNodeArray;
 }
@@ -38,7 +37,6 @@ function CarouselWidget(props: CarouselWidgetProps) {
     const [activeImage, setActiveImage] = useState(0);
     const [moveRight, setMoveRight] = useState(false);
     const [moveLeft, setMoveLeft] = useState(false);
-    // const images: Array<{img: any, text: string}> = props.images;
     const classes = useStyles();
 
     const handleNavigationRightOnClick = useCallback(() => {
